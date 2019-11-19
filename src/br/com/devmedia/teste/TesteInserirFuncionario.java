@@ -12,6 +12,7 @@ import br.com.devmedia.jpa.EntityManagerUtil;
 public class TesteInserirFuncionario {
 
 	public static void main(String[] args) {
+		
 		EntityManager em = EntityManagerUtil.getEntityManager();
 		Grupo grupo = em.find(Grupo.class, 1);
 		Setor setor = em.find(Setor.class, 1);

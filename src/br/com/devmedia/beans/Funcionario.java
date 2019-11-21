@@ -1,5 +1,6 @@
 package br.com.devmedia.beans;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -15,6 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Index;
@@ -22,6 +24,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CPF;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 @Entity
 @Table(name = "FUNCIONARIO")
@@ -86,6 +90,9 @@ public class Funcionario implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "SETOR", referencedColumnName = "ID", nullable = false)
 	private Setor setor;
+	
+	@Transient
+	private StreamedContent imagem;
 	
 	public Funcionario() {
 	}
@@ -191,6 +198,19 @@ public class Funcionario implements Serializable {
 	@Override
 	public String toString() {
 		return nome;
+	}
+
+	public StreamedContent getImagem() {
+		if(this.getFoto() != null) {
+				return new DefaultStreamedContent(
+						new ByteArrayInputStream(this.getFoto()), "");
+			} else 
+				return new DefaultStreamedContent();
+		}
+	
+
+	public void setImagem(StreamedContent imagem) {
+		this.imagem = imagem;
 	}
 	
 }

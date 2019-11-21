@@ -2,15 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Edição de funcionarios</title>
 	<h:outputScript library="js" name="scripts.js"/>
 </h:head>
 <h:body>
-	<h:form>
-		<h:messages />
+	<h:form enctype="multipart/form-data">
+		<h:messages id="messages"/>
+		
 		<h:panelGrid columns="2">
 			<f:facet name="header">Edição de funcionarios</f:facet>
 			<f:facet name="footer">
@@ -20,7 +22,7 @@
 				</div>
 			</f:facet>
 			
-			<h:outputLabel value="ID" />
+			<h:outputLabel value="ID"/>
 			<h:inputText value="#{controleFuncionario.objeto.id}" readonly="true"/>
 			
 			<h:outputLabel value="Nome" />
@@ -46,8 +48,6 @@
 			<h:outputLabel value="Ativo" />
 			<h:selectBooleanCheckbox value="#{controleFuncionario.objeto.ativo}" />
 			
-			
-			
 			<h:outputLabel value="Nome Usuario" />
 			<h:inputText value="#{controleFuncionario.objeto.nomeUsuario}" size="20" maxlength="20" />
 			
@@ -67,7 +67,17 @@
 					<f:selectItem itemLabel="Selecione um setor" noSelectionOption="true"/>
 					<f:selectItems value="#{controleFuncionario.daoSetor.listarTodos()}"/>
 			</h:selectOneMenu>
-		
+			
+			<h:outputLabel value="Foto: " />
+			<p:fileUpload id="uploadImagem" mode="advanced"
+						  update="messages, imagem" auto="true"
+						  label="Selecionar" fileUploadListener="#{controleFuncionario.enviarFoto}"/>
+			
+			<h:outputLabel value="" />
+			<p:graphicImage value="#{controleFuncionario.objeto.imagem}"
+							id="imagem" style="width:60px;height:60px" cache="false"
+							allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+			
 		</h:panelGrid>
 		
 	</h:form>

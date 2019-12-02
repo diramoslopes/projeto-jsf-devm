@@ -179,6 +179,14 @@ public class Projeto implements Serializable{
 	public void removerTodosFuncioanrios() {
 		this.funcionarios.clear();
 	}
+
+	public List<ProjetoFuncionario> getFuncionarios() {
+		return funcionarios;
+	}
+
+	public void setFuncionarios(List<ProjetoFuncionario> funcionarios) {
+		this.funcionarios = funcionarios;
+	}
 	
 	
 }

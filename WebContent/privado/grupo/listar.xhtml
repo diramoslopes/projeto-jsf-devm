@@ -12,8 +12,52 @@
 		<h:messages />
 		<h:commandLink action="#{controleGrupo.novo()}" value="Novo registro" />
 		
-		<h:dataTable value="#{controleGrupo.dao.listarTodos()}" var="obj" frame="box" rules="all" cellpadding="3">
+		<h:panelGrid columns="6">
 		
+			<h:selectOneMenu value="#{controleGrupo.dao.ordem}">
+				<f:selectItem itemLabel="ID" itemValue="id"/>
+				<f:selectItem  itemLabel="Nome" itemValue="nome"/>
+				<f:ajax execute="@form" render="@form"/>
+			</h:selectOneMenu>
+			
+			<h:outputLabel value="Filtro:" />
+			
+			<h:inputText value="#{controleGrupo.dao.filtro}">
+				<f:ajax execute="@form" render="@form" event="keyup"/>
+			</h:inputText>
+			
+			<h:outputLabel value="Maximo de objetos" />
+			<h:inputText value="#{controleGrupo.dao.maximosObjetos}" size="3"> 
+				<f:ajax execute="@form" render="@form" event="keyup"/>
+			</h:inputText>
+			
+		</h:panelGrid>		
+		
+		<h:dataTable value="#{controleGrupo.dao.listar()}" var="obj" frame="box" rules="all" cellpadding="3">
+		
+		<f:facet name="header"> Listagem de grupos </f:facet>
+		<f:facet name="footer">
+			<div align="center">
+				<h:outputLabel value="#{controleGrupo.dao.mensagemNavegacao}" /><br/>
+				<h:commandButton action="#{controleGrupo.dao.primeiro()}" value="Primeiro">
+					<f:ajax execute="@form" render="@form"/>
+				</h:commandButton>
+				
+				<h:commandButton action="#{controleGrupo.dao.anterior()}" value="Anterior">
+					<f:ajax execute="@form" render="@form"/>
+				</h:commandButton>
+				
+				<h:commandButton action="#{controleGrupo.dao.proximo()}" value="Proximo">
+					<f:ajax execute="@form" render="@form"/>
+				</h:commandButton>
+				
+				<h:commandButton action="#{controleGrupo.dao.ultimo()}" value="Ultimo">
+					<f:ajax execute="@form" render="@form"/>
+				</h:commandButton>
+			</div>
+		
+		</f:facet>
+	
 		<h:column>
 			<f:facet name="header">ID</f:facet>
 			#{obj.id}

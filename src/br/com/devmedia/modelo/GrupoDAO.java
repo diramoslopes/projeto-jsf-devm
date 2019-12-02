@@ -12,9 +12,72 @@ import br.com.devmedia.util.UtilMessagens;
 public class GrupoDAO {
 	
 	private EntityManager em;
+	private String ordem = "id";
+	private String filtro = "";
+	private Integer maximosObjetos = 1;
+	private Integer posicaoAtual = 0;
+	private Integer totalObjetos = 0;
 	
 	public GrupoDAO() {
 		em = EntityManagerUtil.getEntityManager();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Grupo> listar(){
+		String where = "";
+		if (filtro.length() > 0 ){
+			if (ordem.equals("id")){
+				try {
+					Integer.parseInt(filtro);
+					where  = " where "+ ordem + " = '"+filtro+"' ";
+				}catch(Exception e){
+					
+				}
+			} else {
+				where = " where upper("+ordem+") like '"+filtro.toUpperCase()+ "%' ";
+			}			
+		}
+		String jpql = "from Grupo "+ where +" order by "+ordem;
+		totalObjetos = em.createQuery("select id from Grupo "+ where +
+				" order by "+ordem).getResultList().size();
+		return em.createQuery(jpql).
+				setFirstResult(posicaoAtual).
+				setMaxResults(maximosObjetos).getResultList();
+	}
+	
+	public void primeiro() {
+		posicaoAtual = 0;
+	}
+	
+	public void anterior() {
+		posicaoAtual -= maximosObjetos;
+		if(posicaoAtual < 0) {
+			posicaoAtual = 0;
+		}
+	}
+	
+	public void proximo() {
+		if(posicaoAtual + maximosObjetos < totalObjetos) {
+			posicaoAtual += maximosObjetos;
+		}
+	}
+	
+	public void ultimo() {
+		int resto = totalObjetos % maximosObjetos;
+		if(resto > 0) {
+			posicaoAtual = totalObjetos - resto;
+		} else {
+			posicaoAtual = totalObjetos - maximosObjetos;
+		}
+	}
+	
+	public String getMensagemNavegacao() {
+		int ate = posicaoAtual + maximosObjetos;
+		if(ate > totalObjetos) {
+			ate = totalObjetos;
+		}
+		
+		return "Listando de " + (posicaoAtual + 1) + " até " + ate + " de " + totalObjetos + " registros";
 	}
 	
 	public List<Grupo> listarTodos(){
@@ -71,6 +134,46 @@ public class GrupoDAO {
 
 	public void setEm(EntityManager em) {
 		this.em = em;
+	}
+
+	public String getOrdem() {
+		return ordem;
+	}
+
+	public void setOrdem(String ordem) {
+		this.ordem = ordem;
+	}
+
+	public String getFiltro() {
+		return filtro;
+	}
+
+	public void setFiltro(String filtro) {
+		this.filtro = filtro;
+	}
+
+	public Integer getMaximosObjetos() {
+		return maximosObjetos;
+	}
+
+	public void setMaximosObjetos(Integer maximosObjetos) {
+		this.maximosObjetos = maximosObjetos;
+	}
+
+	public Integer getPosicaoAtual() {
+		return posicaoAtual;
+	}
+
+	public void setPosicaoAtual(Integer posicaoAtual) {
+		this.posicaoAtual = posicaoAtual;
+	}
+
+	public Integer getTotalObjetos() {
+		return totalObjetos;
+	}
+
+	public void setTotalObjetos(Integer totalObjetos) {
+		this.totalObjetos = totalObjetos;
 	}
 	
 	

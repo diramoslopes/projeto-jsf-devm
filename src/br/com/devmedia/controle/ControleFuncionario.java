@@ -41,7 +41,7 @@ public class ControleFuncionario implements Serializable{
 	}
 	
 	public String listar() {
-		return "/privado/funcionario/listar";
+		return "/privado/funcionario/listar?faces-redirect=true";
 	}
 	
 	public String novo() {

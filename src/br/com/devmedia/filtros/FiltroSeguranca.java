@@ -34,6 +34,15 @@ public class FiltroSeguranca implements Filter {
 		ControleLogin controleLogin = (ControleLogin) sessao.getAttribute("controleLogin");
 		if(controleLogin == null || controleLogin.getUsuarioLogado() == null) {
 			httpResponse.sendRedirect(contextPath + "/login.xhtml"); 
+		} else {
+			String pagina = httpRequest.getRequestURL().toString();
+			//System.out.println("Pagina acessada: " + pagina);
+			if(pagina.contains("/privado/funcionario")) {
+				if(!controleLogin.getUsuarioLogado().getGrupo().getNome().equals("Administradores")) {
+					httpResponse.sendRedirect(contextPath + "/naoAutorizado.xhtml");
+					
+				}
+			}
 		}
 		
 		chain.doFilter(request, response);

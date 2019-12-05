@@ -16,6 +16,8 @@
 		<h:dataTable value="#{controleProjeto.dao.listarTodos()}" var="obj" frame="box" rules="all" cellpadding="3">
 			<f:facet name="header">
 				<h:commandButton action="#{controleProjeto.novo()}" value="Novo Registro" />
+				<h:commandButton action="#{controleProjeto.relatorio()}" value="Imprimir" 
+					onclick="this.form.target='_blank'"/>
 			</f:facet>
 			
 			<h:column>

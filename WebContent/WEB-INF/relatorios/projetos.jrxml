@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projetos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="158a31b7-0554-4dc4-83c3-e5d2f12f5cd1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="zebra">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue() % 2 == 0)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FFFFCC"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Administrador\\eclipse-workspace-set-19\\ProjetoJSF\\WebContent\\WEB-INF\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="ativo" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[ativo]]></fieldDescription>
+	</field>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[descricao]]></fieldDescription>
+	</field>
+	<field name="fim" class="java.util.Calendar">
+		<fieldDescription><![CDATA[fim]]></fieldDescription>
+	</field>
+	<field name="funcionarios" class="java.util.List">
+		<fieldDescription><![CDATA[funcionarios]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="inicio" class="java.util.Calendar">
+		<fieldDescription><![CDATA[inicio]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	</field>
+	<field name="setor" class="br.com.devmedia.beans.Setor">
+		<fieldDescription><![CDATA[setor]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="1846f00a-5803-4b59-81f3-478aca851a1a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Relatório de Projetos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="37" backcolor="#CCCCFF" uuid="3e90e5d0-2cbc-432b-9b5e-3dc09ab66983"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="15" y="11" width="35" height="20" uuid="c21bffcd-c643-4838-9bbf-f2c8c634f35b"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="11" width="128" height="20" uuid="26e4a405-83f9-4d95-bc6b-53315ce4bc04"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="207" y="11" width="100" height="20" uuid="124bf13b-f772-46d4-95bc-ce75acfbdd4f"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Inicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="11" width="100" height="20" uuid="af327e9d-d73b-4d75-b336-a6c83ab2d321"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Fim]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="11" width="100" height="20" uuid="2c23db61-7d93-40ea-a5bb-f4394c1047cc"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Setor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<rectangle>
+				<reportElement style="zebra" positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="555" height="74" uuid="6e312d4e-8c9d-4bc4-85d4-10ae94793378"/>
+			</rectangle>
+			<textField>
+				<reportElement x="15" y="0" width="35" height="20" uuid="79a22c4e-75da-4cad-ba82-d3ad37a702bc"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="0" width="128" height="20" uuid="d97dcebb-491d-444b-9169-b66c373cb1f1"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="207" y="0" width="100" height="20" uuid="7f7f1fc0-2d3c-43ce-8fb0-f54516cb5a9c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{inicio}.getTime()]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="333" y="0" width="100" height="20" uuid="f642084c-ea74-4ea4-9dff-f055d47dae59"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fim}.getTime()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="443" y="0" width="100" height="20" uuid="bbd5d2b1-d4a3-45e4-b36c-52013163879a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{setor}.getNome()]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="15" y="31" width="528" height="31" uuid="be724028-5164-447c-b9fe-0f07575dffd7"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{funcionarios})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subprojetos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="33" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="27" y="12" width="180" height="20" uuid="d374f9fb-6d43-4438-b6c3-ce8cade05418"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="12" width="80" height="20" uuid="6cf79e50-71fb-4566-aa00-db6ee2ee2cfa"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="433" y="12" width="40" height="20" uuid="8b66fb35-012b-42eb-8178-54b72d3446ab"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

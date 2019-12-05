@@ -25,6 +25,7 @@ public class UtilRelatorios {
 					new JRBeanCollectionDataSource(lista);
 			
 			FacesContext facesContext = FacesContext.getCurrentInstance();
+			facesContext.responseComplete();
 			ServletContext scontext = 
 					(ServletContext) facesContext.getExternalContext().getContext();			
 			String path = scontext.getRealPath("/WEB-INF/relatorios/");
@@ -40,7 +41,8 @@ public class UtilRelatorios {
 			int codigo = (int) (Math.random() * 1000);
 			res.setHeader("Context-disposition", "inline);filename=relatorio_"+codigo+".pdf");
 			res.getOutputStream().write(b);
-			facesContext.renderResponse();
+			res.getCharacterEncoding();
+			facesContext.responseComplete();
 			
 		} catch(Exception e) {
 			UtilMessagens.mensagemErro("Erro ao imprimir: " + UtilErros.getMensagemErro(e));
